@@ -1,6 +1,8 @@
 package rodrigo.salles.emsbackend.employee;
 
 import org.springframework.stereotype.Service;
+import rodrigo.salles.emsbackend.department.Department;
+import rodrigo.salles.emsbackend.department.DepartmentRepository;
 import rodrigo.salles.emsbackend.exceptions.ResourceNotFoundException;
 
 import java.util.List;
@@ -10,15 +12,22 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService{
 
     private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
         this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
     }
-
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
+
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
+
+        Department department = departmentRepository.findById(employeeDto.getDepartmentId())
+                .orElseThrow(() -> new ResourceNotFoundException("Department is not exists with id: "+employeeDto.getDepartmentId()));
+        employee.setDepartment(department);
+
         Employee savedEmployee = employeeRepository.save(employee);
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
     }
@@ -48,6 +57,10 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setEmail(updatedEmployee.getEmail());
         employee.setFirstName(updatedEmployee.getFirstName());
         employee.setLastName(updatedEmployee.getLastName());
+
+        Department department = departmentRepository.findById(updatedEmployee.getDepartmentId())
+                .orElseThrow(() -> new ResourceNotFoundException("Department is not exists with id: "+ updatedEmployee.getDepartmentId()));
+        employee.setDepartment(department);
 
         Employee updatedEmployeeObj = employeeRepository.save(employee);
 

@@ -10,14 +10,26 @@ public class EmployeeDto {
 
     private String email;
 
-    public EmployeeDto(long id, String firstName, String lastName, String email) {
+    private long departmentId;
+
+    public EmployeeDto(long id, String firstName, String lastName, String email, long departmentId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.departmentId = departmentId;
     }
+
     public EmployeeDto(){
 
+    }
+
+    public long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(long departmentId) {
+        this.departmentId = departmentId;
     }
 
     public long getId() {
