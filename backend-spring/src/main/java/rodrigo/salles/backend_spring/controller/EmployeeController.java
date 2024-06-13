@@ -10,6 +10,7 @@ import rodrigo.salles.backend_spring.service.EmployeeService;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/employees")
