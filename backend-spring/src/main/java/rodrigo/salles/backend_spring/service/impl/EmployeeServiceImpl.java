@@ -1,8 +1,6 @@
 package rodrigo.salles.backend_spring.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import rodrigo.salles.backend_spring.dto.EmployeeDto;
 import rodrigo.salles.backend_spring.entity.Employee;
