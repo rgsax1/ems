@@ -3,6 +3,8 @@ package rodrigo.salles.backend_spring.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import rodrigo.salles.backend_spring.dto.DepartmentDto;
 import rodrigo.salles.backend_spring.entity.Department;
 import rodrigo.salles.backend_spring.exception.ResourceNotFoundException;
@@ -10,6 +12,8 @@ import rodrigo.salles.backend_spring.mapper.DepartmentMapper;
 import rodrigo.salles.backend_spring.repository.DepartmentRepository;
 import rodrigo.salles.backend_spring.service.DepartmentService;
 
+@Service
+@AllArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
 
     private DepartmentRepository departmentRepository;
@@ -31,7 +35,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<DepartmentDto> getAllDepartments() {
         List<Department> departments = departmentRepository.findAll();
-        return departments.stream().map((department) -> DepartmentMapper.mapToDepartmentDto(department))
+        return departments.stream().map(DepartmentMapper::mapToDepartmentDto)
         .collect(Collectors.toList());
     }
 
