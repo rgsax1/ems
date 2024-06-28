@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {deleteEmployee, listEmployees} from "../services/EmployeeService.js";
+import {deleteEmployee, getEmployees} from "../services/EmployeeService.js";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -15,7 +15,7 @@ const ListEmployeeComponent = () => {
 
 
     function getAllEmployees(){
-        listEmployees().then((response) => {
+        getEmployees().then((response) => {
             setEmployees(response.data);
         }).catch(error => {
             console.error(error);
@@ -34,7 +34,6 @@ const ListEmployeeComponent = () => {
         console.log(id);
         deleteEmployee(id).then((response) => {
             getAllEmployees()
-
         }).catch(error => {
             console.error(error);
         })
